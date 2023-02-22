@@ -3,13 +3,13 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 const path = require("path");
+<<<<<<< HEAD
 const port = 8080;
+=======
+>>>>>>> refs/remotes/origin/main
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid");
 const todoFilePath = process.env.BASE_JSON_PATH;
-
-//Read todos from todos.json into variable
-let todos = require(__dirname + todoFilePath);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,10 +25,17 @@ app.get("/", (_, res) => {
 });
 
 app.get("/todos", (_, res) => {
+<<<<<<< HEAD
   // res.header("Content-Type", "application/json");
   // res.sendFile(todoFilePath, { root: __dirname }
   
 
+=======
+  /*
+  res.header("Content-Type","application/json");
+  res.sendFile(todoFilePath, { root: __dirname });
+  */
+>>>>>>> refs/remotes/origin/main
   res.status(501).end();
 });
 
@@ -59,6 +66,7 @@ app.post('/todos/:id/complete', (req, res) => {
 
 //Add DELETE request with path '/todos/:id
 
+<<<<<<< HEAD
 app.delete('/todos/:id', (req, res) => {
   res.status(errorStatus).send('Not implemented');
 });
@@ -67,4 +75,6 @@ app.listen(port, function () {
   console.log(`Node server is running... http://localhost:${port}`);
 });
 
+=======
+>>>>>>> refs/remotes/origin/main
 module.exports = app;
