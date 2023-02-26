@@ -50,42 +50,90 @@ app.get("/todos/overdue", (req, res) => {
 //Add GET request with path '/todos/completed'
 
 app.get("/todos/completed", (req, res) => {
-  const profile = JSON.parse(
+  const todos = JSON.parse(
     fs.readFileSync(path.join(__dirname, "models/todos.json"))
   );
-  const result = profile.filter((item) => item.completed == true);
+  const result = todos.filter((item) => item.completed == true);
   res.send(result);
+  res.status(200);
 });
 
 //Add POST request with path '/todos'
 
-app.get("/todos/", (req, res) => {
-  const message = "Hello everybody";
-  res.send(message);
+app.post("/todos", (req, res) => {});
+
+// Add Get request for individual todo items path
+
+app.get("/todos/:id", (req, res) => {
+  const todos = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "models/todos.json"))
+  );
+  let item;
+  let itemFound = false;
+  for (let i = 0; i < todos.length; i++) {
+    item = todos[i];
+    if (item.id == req.params.id) {
+      itemFound = true;
+      break;
+    }
+  }
+
+  if (!itemFound) {
+    res.status(404);
+    res.send("Item not found");
+  } else {
+    res.send(item);
+  }
 });
 
 //Add PATCH request with path '/todos/:id
 
-app.get("/todos/:id", (req, res) => {
-  const profile = JSON.parse(
+app.patch("/todos/:id", (req, res) => {
+  const todos = JSON.parse(
     fs.readFileSync(path.join(__dirname, "models/todos.json"))
   );
+  let item;
+  let itemFound = false;
+  for (let i = 0; i < todos.length; i++) {
+    item = todos[i];
+    if (item.id == req.params.id) {
+      itemFound = true;
+      if (req.body.name) {
+        item.name = req.body.name;
+        fs.writeFileSync(path.join(__dirname, "models/todos.json"), JSON.stringify(todos, null, 2))
+      }
 
-  res.send(result);
+      break;
+    }
+  }
+
+  if (!itemFound) {
+    res.status(404);
+    res.send("Item not found");
+  } else {
+    res.send(item);
+  }
 });
+
+
+//(new Date()).toISOString()
+
+
 //Add POST request with path '/todos/:id/complete
 
+app.post("/todos/:id", (req, res) => {});
 //Add POST request with path '/todos/:id/undo
 
-app.get("/todos/:id/undo", (req, res) => {
+app.post("/todos/:id/undo", (req, res) => {
   res.send(message);
 });
 //Add DELETE request with path '/todos/:id
 
-app.delete("/todos/:01507581-9d12-4c3a-bb60-19d539a11189", (req, res) => {
-  const profile = JSON.parse(
+app.delete("/todos/01507581-9d12-4c3a-bb60-19d539a11189", (req, res) => {
+  const todos = JSON.parse(
     fs.readFileSync(path.join(__dirname, "models/todos.json"))
   );
+  const removeID = document.getElementById(todos.id).remove();
 });
 
 app.listen(port, function () {
