@@ -1,9 +1,128 @@
 <html>
+
+
+
   <head>
-    <title>Todo List API</title>
+    <style>
+      table, th, td {border:1px solid black;
+      }
+      body {background-image: url("././images/logo.png");
+      }
+      
+      
+      </style>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <title> Welcome to Tammy's Todo List API</title>
   </head>
-  <body>
     <h1>Todo List API</h1>
-    <p>....</p>
+<body>
+<table>
+  <tr>
+    <th>Method</th>
+    <th>URL</th>
+    <th>Description</th>
+    <th>Example URL</th>
+    <th>Request Body</th>
+    <th>Status Code</th>
+    <th>Response Body</th>
+  </tr>
+  <tr>
+    <th>'GET'</th> 
+    <th>'/'</th>
+    <th>Returns a static HTML file `index.html` containing a `favicon.ico`, `logo.png` and reference to an external stylesheet `styles.css`.</th>
+    <th><a href="url">http://localhost:8081/</a></th>
+    <th></th>
+    <th>200</th>
+    <th>HTML page</th>
+  </tr>
+  <tr>
+    <th>'GET'</th> 
+    <th>`/todos`</th>
+    <th>Return all todos from the `todos.json` file.</th>
+    <th><a href="url">http://localhost:8081/todos</a></th>
+    <th></th>
+    <th>200</th>
+    <th>`[{"id":"01507581-9d12-4c3a-bb60-19d539a11189","name":"Learn to use Adobe Photoshop","created":"2021-11-20T18:25:43.511Z","due":"2021-12-23T23:05:03.352Z","completed":false}</th>
+  </tr>
+  <tr>
+    <th>`GET` </th>
+    <th>'/todos/:id'</th>
+    <th>Return a specific todo with the corresponding `id`</th>
+    <th><a href="url">http://localhost:8081/todos/01507581-9d12-4c3a-bb60-19d539a11189`</a></th>
+    <th></th>
+    <th>200 or 404 if id not found</th>
+    <th>`{"id":"01507581-9d12-4c3a-bb60-19d539a11189","name":"Learn to use Adobe Photoshop","created":"2021-11-20T18:25:43.511Z","due":"2021-12-23T23:05:03.352Z","completed":false}`</th>
+  </tr>
+  <tr>
+    <th>`GET`</th>
+    <th>`/todos/overdue`</th>
+    <th>Return a list of __overdue__ todos or an empty list if there are no overdue todos. Todos can be filtered based on their `due` date attribute</th>
+    <th><a href="url">http://localhost:8081/todos/overdue</a>></th>
+    <th></th>
+    <th>200</th>
+    <th>`[]` or `[{todo1},{todo2},{...}]`</th>
+  </tr>
+  <tr>
+    <th>`GET`</th>
+    <th>`/todos/completed`</th>
+    <th>Return a list of __completed__ todos or an empty list, if no todos have been completed. Todos can be filtered based on their `due` date attribute.</th>
+    <th><a href="url">http://localhost:8081/todos/completed</a>></th>
+    <th></th>
+    <th>200</th>
+    <th>`[]` or `[{todo1},{todo2},{...}]` </th>
+  </tr>
+
+  <tr>
+    <th>`POST`*</th>
+    <th>`/todos`</th>
+    <th>Add a new todo to the todo list </th>
+    <th><a href="url">http://localhost:8081/todos</a></th>
+    <th>{'name' : 'Buy oatmilk x 2', 'due':'2021-11-20T18:25:43.511Z'}</th>
+    <th>201 (Created), 400 (Bad Request) if incorrect data submitted</th>
+  <th></th>
+</tr>
+<tr>
+  <th>`PATCH`* /th>
+  <th>'/todos/:id'</th>
+  <th>Edit the `name` and/or `due` date attributes of a todo. </th>
+  <th><a href="url">http://localhost:8081/todos/:9d127581-0150-4c3a-bb60-1118919d539a</a>></th>
+  <th>{"name":"Buy 3 Cartons of Oat Milk","due":"2021-12-23T18:25:43.511Z"}</th>
+  <th>200 (OK) or 404 (Not Found) if invalid id or request attributes</th>
+  <th></th>
+</tr>
+<tr>
+  <th>`POST`* </th>
+  <th>'/todos/:id/complete'</th>
+  <th>Update todo, set attribute complete to `true` </th>
+  <th><a href="url">http://localhost:8081/todos/01507581-9d12-4c3a-bb60-19d539a11189/complete</a></th>
+  <th></th>
+  <th>200 (OK) or 404 (Not Found) if invalid id</th>
+  <th></th>
+</tr>
+<tr>
+  <th>`POST`* </th>
+  <th>'/todos/:id/undo'</th>
+  <th>Update todo, set attribute complete to `false`</th>
+  <th><a href="url">http://localhost:8081/todos/01507581-9d12-4c3a-bb60-19d539a11189/undo</a></th>
+  <th></th>
+  <th>200 (OK) or 404 (Not Found) if invalid id</th>
+  <th></th>
+</tr>
+<tr>
+  <th>`DELETE`*</th>
+  <th>'todos/:id'</th>
+  <th>Deletes a todo by `id`</th>
+  <th><a href="url">http://localhost:8081/todos/01507581-9d12-4c3a-bb60-19d539a11189</a></th>
+  <th></th>
+  <th>200 (OK) or 404 (Not Found) if invalid id</th>
+  <th></th>
+</tr>
+</table>
+*_`POST`, `PUT`, `PATCH` and `DELETE` methods may need an API testing tool such as Postman to test._
+  
+    </p>
   </body>
 </html>
