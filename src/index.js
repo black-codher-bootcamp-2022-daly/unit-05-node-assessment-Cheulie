@@ -116,17 +116,68 @@ app.patch("/todos/:id", (req, res) => {
 });
 
 
-//(new Date()).toISOString()
 
 
 //Add POST request with path '/todos/:id/complete
 
+
 app.post("/todos/:id", (req, res) => {});
+
+const todos = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "models/todos.json"))
+);
+let item;
+let itemFound = false;
+for (let i = 0; i < todos.length; i++) {
+  item = todos[i];
+  if (item.id == req.params.id) {
+    itemFound = true;
+    if (req.body.completed) {
+      item.name = req.body.completed;
+      fs.writeFileSync(path.join(__dirname, "models/todos.json"), JSON.stringify(todos, null, 2))
+    }
+
+    break;
+  }
+}
+
+if (!itemFound) {
+  res.status(404);
+  res.send("Item not found");
+} else {
+  res.send(item);
+}
+;
+
 //Add POST request with path '/todos/:id/undo
 
-app.post("/todos/:id/undo", (req, res) => {
-  res.send(message);
-});
+app.post("/todos/:id", (req, res) => {});
+
+const todos = JSON.parse(
+  fs.readFileSync(path.join(__dirname, "models/todos.json"))
+);
+let item;
+let itemFound = false;
+for (let i = 0; i < todos.length; i++) {
+  item = todos[i];
+  if (item.id == req.params.id) {
+    itemFound = true;
+    if (req.body.completed) {
+      item.name = req.body.completed;
+      fs.writeFileSync(path.join(__dirname, "models/todos.json"), JSON.stringify(todos, null, 2))
+    }
+
+    break;
+  }
+}
+
+if (!itemFound) {
+  res.status(404);
+  res.send("Item not found");
+} else {
+  res.send(item);
+}
+;
 //Add DELETE request with path '/todos/:id
 
 app.delete("/todos/01507581-9d12-4c3a-bb60-19d539a11189", (req, res) => {
